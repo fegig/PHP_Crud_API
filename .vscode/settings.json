@@ -1,0 +1,19 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "srv496.hstgr.io",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "API test",
+            "database": "u751352931_tester",
+            "username": "u751352931_tester",
+            "group": "My tests",
+            "password": "s5]IgBJoiI"
+        }
+    ]
+}

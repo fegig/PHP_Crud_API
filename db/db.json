@@ -1,0 +1,25 @@
+[{
+    "id": 1,
+    "name": "kellium test",
+    "age": 18,
+    "sex": "male"
+},
+{
+    "id": 2,
+    "name": "makus base",
+    "age": 18,
+    "sex": "female"
+},
+{
+    "id": 3,
+    "name": "apor jit",
+    "age": 18,
+    "sex": "non binary"
+},
+{
+    "id": 4,
+    "name": "tot inat",
+    "age": 18,
+    "sex": "male"
+}
+]
