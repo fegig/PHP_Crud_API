@@ -1,8 +1,8 @@
 <?php
-$host = 'srv496.hstgr.io';
-$user = 'u751352931_tester';
-$password = 's5]IgBJoiI';
-$dbname = 'u751352931_tester'; 
+$host = 'localhost';
+$user = 'username';
+$password = '';
+$dbname = 'api_auth'; 
 
    $conn = mysqli_connect($host, $user, $password, $dbname);
    if (!$conn){
