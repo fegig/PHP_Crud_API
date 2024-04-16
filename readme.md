@@ -1,9 +1,7 @@
 ## Basic Api With PHP 
 
-start server with 
+Start php server locally 
 
-``javascript 
-php -S localhost:8000
-``
+``php -S localhost:8000``
 
 # Endpoint: url/api/
