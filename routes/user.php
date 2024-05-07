@@ -29,7 +29,7 @@ class UserRouter
         }
     }
 
-    public function GETROUTE($endpoint, $data)
+    public function GETROUTE($endpoint)
     {
         if ($endpoint === '/users') {
             // Get all users
@@ -58,7 +58,6 @@ class UserRouter
             echo json_encode(["error" => "Invalid endpoint"]);
         }
     }
-
 
     public function DELETEROUTE($endpoint)
     {

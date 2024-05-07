@@ -1,10 +1,12 @@
 <?php
+require_once 'utility/authentication.php';
+
 function gep($url)
 {
     $segments = explode('/', $url);
     if (!(count($segments) > 3)) {
         if (isset($segments[2]) && !empty($segments[2])) {
-            return '/' . $segments[1] . '/' . $segments[2]; // Gets the ID
+            return '/' . $segments[1] . '/' . $segments[2];
         } else {
             return '/' . $segments[1];
         }
@@ -46,9 +48,13 @@ function err_type($type)
             echo json_encode(array("message" => "Internal Server Error"));
             break;
         case 505:
-                http_response_code(505);
-                echo json_encode(array("message" => "Invalid API Key"));
-                break;
+            http_response_code(403);
+            echo json_encode(array("message" => "No Key was received to authorize the operation"));
+            break;
+        case 509:
+            http_response_code(403);
+            echo json_encode(array("message" => "Invalid Api Key"));
+            break;
         default:
             http_response_code(402);
             echo json_encode(array("message" => "Unknown error"));
