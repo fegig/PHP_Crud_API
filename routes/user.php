@@ -31,27 +31,26 @@ class UserRouter
 
     public function GETROUTE($endpoint, $data)
     {
-        if (preg_match('/^\/users\/(\d+)$/', $endpoint, $matches)) {
-            if ($endpoint === '/users') {
-                // Get all users
-                $users = $this->model->getAllUsers();
-                echo json_encode(["data" => $users]);
-            } else {
-                // Get user by ID 
-                $userId = $matches[1];
-                $result = $this->model->getAllUsers();
+        if ($endpoint === '/users') {
+            // Get all users
+            $users = $this->model->getAllUsers();
+            echo json_encode(["data" => $users]);
+        } else if (preg_match('/^\/users\/(\d+)$/', $endpoint, $matches)) {
 
-                $found = false;
-                foreach ($result as $user) {
-                    if ($user['id'] == $userId) {
-                        echo json_encode(['data' => $user]);
-                        $found = true;
-                        break;
-                    }
+            // Get user by ID 
+            $userId = $matches[1];
+            $result = $this->model->getAllUsers();
+
+            $found = false;
+            foreach ($result as $user) {
+                if ($user['id'] == $userId) {
+                    echo json_encode(['data' => $user]);
+                    $found = true;
+                    break;
                 }
-                if (!$found) {
-                    err_type(404);
-                }
+            }
+            if (!$found) {
+                err_type(404);
             }
         } else {
             // Invalid endpoint
