@@ -1,0 +1,20 @@
+{
+    "name": "fegig/php_crud_api",
+    "description": "Fast and lightweight Endpoint Solution using pure PHP",
+    "type": "project",
+    "require": {
+        "phpmailer/phpmailer": "^6.9",
+        "friendsofphp/php-cs-fixer": "^3.59"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fegig\\PhpCrudApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Oghenefegor Idoro",
+            "email": "69634999+fegig@users.noreply.github.com"
+        }
+    ]
+}
