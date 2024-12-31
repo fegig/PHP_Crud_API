@@ -3,7 +3,7 @@
 declare(strict_types=1);
 namespace App\Controllers;
 
-use App\Models\ImageModel;
+use App\Queue\ImageQueue;
 use Exception;
 use InvalidArgumentException;
 use Utility\Core\Response;
@@ -16,12 +16,12 @@ class ImageController
     private const UPLOAD_PATH = __DIR__ . '/../uploads/images/';
     private const QUALITY = 75;
 
-    private ImageModel $imageModel;
+    private ImageQueue $imageModel;
     private ImageUtils $imageUtils;
 
     public function __construct()
     {
-        $this->imageModel = new ImageModel();
+        $this->imageModel = new ImageQueue();
         $this->imageUtils = new ImageUtils();
     }
 

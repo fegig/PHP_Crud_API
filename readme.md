@@ -147,3 +147,43 @@ Error Response:
     "code": 400
 }
 ```
+
+## Console Commands
+
+### Creating Controllers and Models
+Use the console utility to generate new controllers and models:
+
+```bash
+# Create a new controller
+./console controller YourControllerName
+
+# Create a new model
+./console model YourModelName
+```
+
+The controller command will:
+- Create a new controller in `app/Controllers/YourControllerName.php`
+- Automatically create a corresponding model in `app/Models/YourModelName.php`
+- Set up basic CRUD method templates
+- Configure proper namespacing and type declarations
+
+The model command will:
+- Create a new model in `app/Models/YourModelName.php`
+- Set up database table connection
+- Configure basic CRUD methods
+
+Example:
+```bash
+./console controller Product
+```
+
+Creates:
+- `app/Controllers/ProductController.php`
+- `app/Models/Product.php`
+
+```bash
+./console model Category
+```
+
+Creates:
+- `app/Models/Category.php`

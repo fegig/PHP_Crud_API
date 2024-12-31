@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Models\EstateModel;
+use App\Seeds\EstateSeed;
 use Exception;
 use InvalidArgumentException;
 use Utility\Core\Response;
 use Utility\Core\Validator;
+use Utility\Connection\Query;
 
 
 class EstateController {
 
-    private EstateModel $estateModel;
+    private EstateSeed $estateModel;
 
     public function __construct() {
-        $this->estateModel = new EstateModel();
+        $this->estateModel = new EstateSeed();
     }
 
     public function createEstate(): void

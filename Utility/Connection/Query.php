@@ -8,6 +8,7 @@ use Utility\Connection\Database;
 use Utility\Connection\BaseModel;
 use InvalidArgumentException;
 use PDO;
+use PDOException;
 
 class Query extends BaseModel
 {
@@ -35,6 +36,20 @@ class Query extends BaseModel
         $instance = new self();
         $instance->table = $table;
         return $instance;
+    }
+
+    public function create(array $columns): self
+    {
+        $this->operation = 'CREATE';
+        $this->data = $columns;
+        return $this;
+    }
+
+    public function alter(array $modifications): self
+    {
+        $this->operation = 'ALTER';
+        $this->data = $modifications;
+        return $this;
     }
 
     public function insert(array $data): self
@@ -132,6 +147,7 @@ class Query extends BaseModel
 
     public function execute()
     {
+
         $query = $this->buildQuery();
         $params = $this->getParams();
 
@@ -163,6 +179,10 @@ class Query extends BaseModel
                 return $this->buildUpdateQuery();
             case 'DELETE':
                 return $this->buildDeleteQuery();
+            case 'CREATE':
+                return $this->buildCreateQuery();
+            case 'ALTER':
+                return $this->buildAlterQuery();
             default:
                 throw new InvalidArgumentException("Invalid operation: {$this->operation}");
         }
@@ -253,6 +273,52 @@ class Query extends BaseModel
         }, $this->orderBy));
     }
 
+    private function buildCreateQuery(): string
+    {
+        $columnDefinitions = [];
+        foreach ($this->data as $column => $definition) {
+            $columnDefinitions[] = "`$column` $definition";
+        }
+        
+        return "CREATE TABLE IF NOT EXISTS `{$this->table}` (" . 
+               implode(', ', $columnDefinitions) . 
+               ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+    }
+
+    private function buildAlterQuery(): string
+    {
+        $alterStatements = [];
+        foreach ($this->data as $action => $details) {
+            switch (strtoupper($action)) {
+                case 'ADD':
+                    foreach ($details as $column => $definition) {
+                        $alterStatements[] = "ADD COLUMN `$column` $definition";
+                    }
+                    break;
+                case 'MODIFY':
+                    foreach ($details as $column => $definition) {
+                        $alterStatements[] = "MODIFY COLUMN `$column` $definition";
+                    }
+                    break;
+                case 'DROP':
+                    foreach ($details as $column) {
+                        $alterStatements[] = "DROP COLUMN `$column`";
+                    }
+                    break;
+                case 'RENAME':
+                    foreach ($details as $oldColumn => $newColumn) {
+                        $alterStatements[] = "RENAME COLUMN `$oldColumn` TO `$newColumn`";
+                    }
+                    break;
+            }
+        }
+
+        if (empty($alterStatements)) {
+            throw new InvalidArgumentException("No valid alter statements provided");
+        }
+
+        return "ALTER TABLE `{$this->table}` " . implode(', ', $alterStatements);
+    }
     private function quoteIdentifier(string $identifier): string
     {
         // Remove backticks and return the identifier as-is
@@ -299,4 +365,6 @@ class Query extends BaseModel
 
         return $query;
     }
+
+   
 }

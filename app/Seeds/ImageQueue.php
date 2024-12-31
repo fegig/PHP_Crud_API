@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace App\Queue;
 
 use Exception;
 use Utility\Connection\Query;
 
-class ImageModel
+class ImageQueue
 {
     public function createImage(array $data): bool
     {

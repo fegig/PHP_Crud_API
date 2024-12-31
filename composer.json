@@ -1,7 +1,8 @@
 {
   "name": "fegig/php_crud_api",
-  "description": "Fast and lightweight Endpoint Solution using pure PHP",
+  "description": "Fast and lightweight Endpoint Solution using Core PHP",
   "type": "project",
+  "version": "0.2.1",
   "autoload": {
     "psr-4": {
       "App\\": "app/",
